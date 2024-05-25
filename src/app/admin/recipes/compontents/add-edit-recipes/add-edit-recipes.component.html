@@ -1,0 +1,199 @@
+<section>
+  <section class="base">
+
+    <div class="p-4 mt-4">
+ 
+       <div class="row align-items-center justify-content-between">
+          <div class="col-md-4">
+             <div>
+                <h1 class="h3">Fill the<span class="text-main-color"> Recipes  </span> !</h1> 
+                <p class="">you can now fill the meals easily using the table and form , click here and sill it with the table !</p>
+               </div>
+ 
+          </div>
+ 
+          <div class="col-md-2 ">
+ 
+             <div class=" ">
+                <button  (click)="goToRecipes()" class="primary  w-100" >
+                   All Recipes
+                   <i class="fa-solid fa-arrow-right px-2"></i>
+                      </button>
+             </div>
+          </div>
+       </div>
+    </div>
+ 
+ </section>
+  <div class="container ">
+
+   
+
+
+    <div class="row justify-content-center align-items-center  mt-3">
+        <div class="col-md-12">
+
+            
+
+            <div class="auth-card">
+           
+
+                <form [formGroup]="addRecipceForm" (ngSubmit)="sendData(addRecipceForm)">
+                    
+                    <div class="input-group my-3">
+                        <input formControlName="name" type="text" class="form-control" placeholder="Recipe Name" aria-label="Username" aria-describedby="basic-addon1">
+                      </div>
+
+                      <div *ngIf="addRecipceForm.get('name')?.errors && addRecipceForm.get('name')?.touched" class="d-flex align-items-center mb-3">
+                        <img src="./assets/img/invalid.png" width="22" height="22" alt="" class="mx-2">
+                        <p *ngIf="addRecipceForm.get('name')?.getError('required')" class="m-0 text-danger ">recipe name is required</p>
+                      </div>
+
+                      <div class="input-group my-3">
+                        <input formControlName="price" type="number" class="form-control" placeholder="Price" aria-label="Username" aria-describedby="basic-addon1">
+                      </div>
+
+                      <div *ngIf="addRecipceForm.get('price')?.errors && addRecipceForm.get('price')?.touched" class="d-flex align-items-center mb-3">
+                        <img src="./assets/img/invalid.png" width="22" height="22" alt="" class="mx-2">
+                        <p *ngIf="addRecipceForm.get('price')?.getError('required')" class="m-0 text-danger "> price is required</p>
+                      </div>
+
+
+                      <div class="">
+
+                        <mat-form-field   class="w-100">
+                          <mat-label>Tag</mat-label>
+                          <mat-select formControlName="tagId" >
+              
+                            <mat-option [value]="item.id" *ngFor="let item of allTags">{{item.name}}</mat-option>
+                           
+                          </mat-select>
+                        </mat-form-field>
+              
+                      </div>
+              
+              
+                      <div class="">
+              
+                        <mat-form-field class="w-100  ">
+                          <mat-label>{{(categoriesIsEmpty)? 'No Category':'Category'}}</mat-label>
+                          <mat-select  multiple="" formControlName="categoriesIds" >
+                           
+                            <ng-container *ngIf="!categoriesIsEmpty">
+                              <mat-option *ngFor="let item of allCategories.data" [value]="item.id">{{ item.name }}</mat-option>
+              
+                            </ng-container>
+                            
+              
+                          </mat-select>
+              
+                        </mat-form-field>
+              
+
+                      </div>
+
+
+
+                      <div class="input-group mb-3">
+                        <textarea formControlName="description" type="text" class="form-control" placeholder="Description" aria-label="Username" aria-describedby="basic-addon1"></textarea>
+                      </div>
+
+                      <div *ngIf="addRecipceForm.get('description')?.errors && addRecipceForm.get('description')?.touched" class="d-flex align-items-center mb-3">
+                        <img src="./assets/img/invalid.png" width="22" height="22" alt="" class="mx-2">
+                        <p *ngIf="addRecipceForm.get('description')?.getError('required')" class="m-0 text-danger ">description is required</p>
+                      </div>
+
+
+                      <div class=" ">
+
+                        <div  class="center  ">
+
+                          <ng-container *ngIf="imgNeededToEdit">
+                          <div  class="edit  ">
+                        
+                            <ngx-file-drop dropZoneClassName=""   [multiple]="false" dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" 
+                            (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)" >
+               <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector" >
+
+                 <div >
+                   <button type="button" (click)="openFileSelector()" class="">
+                     <i class="fa-solid fa-pen fs-4 text-secondary"></i>
+                   </button>
+                 </div>
+
+                
+
+               </ng-template>
+             </ngx-file-drop>
+
+
+                        
+                          </div>
+                        </ng-container>
+
+
+                            <ngx-file-drop dropZoneClassName="drop-recipce"  *ngIf="!imageUploaded && !imgNeededToEdit" [multiple]="false" dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)" 
+                            (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)" >
+               <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector" >
+
+                 <div >
+                   <button type="button" (click)="openFileSelector()" class="bg-transparent d-flex flex-column align-items-center">
+
+                    <i class="fa-solid fa-upload fs-4 mb-2"></i>
+                     <span class=" upload">
+                      <span *ngIf="recipecId">No image for this recipce <br></span>
+
+                      Upload the recipce image</span>
+
+                   </button>
+                 </div>
+
+                
+
+               </ng-template>
+             </ngx-file-drop>
+
+
+             <div *ngIf="imageUploaded || imgNeededToEdit" class="drop-recipce">
+                <img [src]="(imageUrl)? imageUrl:imgNeededToEdit"  class="w-100 " alt="Uploaded Image">
+              </div>
+
+              
+             
+                            
+                        </div>
+
+
+
+                    </div>
+
+                     
+
+                     <div class="d-flex justify-content-between mt-3">
+
+                      <button (click)="goToRecipes()" class="btn btn-secondary py-2 px-4">Cancel</button>
+                      <button [disabled]="addRecipceForm.invalid" class="primary py-3 px-5 ">{{(recipecId)? 'Update':'Add'}}</button>
+
+
+                     </div>
+                   
+
+
+                </form>
+                  
+
+                
+
+
+
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+
+
+
+</section>

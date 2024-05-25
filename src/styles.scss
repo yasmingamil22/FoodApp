@@ -1,0 +1,359 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$food-app-primary: mat.define-palette(mat.$indigo-palette);
+$food-app-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$food-app-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$food-app-theme: mat.define-light-theme((
+  color: (
+    primary: $food-app-primary,
+    accent: $food-app-accent,
+    warn: $food-app-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($food-app-theme);
+
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+
+@import 'ngx-toastr/toastr';
+
+
+
+$color-main:#4AA35A;
+$color-dark:#3A3A3D;
+$color-gray:#8391A1;
+$dark-secondary:#1F263E;
+
+$disabled-main-color:#4aa35a93;
+$disabled-white-color:#fffffff2;
+
+
+
+
+body{
+    font-family: "Inter", sans-serif;
+}
+h1{
+    font-weight: 700;
+}
+
+.text-main-color{
+   color: $color-main !important;
+
+}
+.bg-dark-secondary{
+    background-color: $dark-secondary;
+
+}
+
+.bg-main{
+        background-image: url('/assets/img/bg.png');
+        background-position: center center;
+        background-size: cover;
+        min-height: 100vh;
+
+        .hide{
+            cursor: pointer;
+        }
+}
+
+.cursor-pointer{
+    cursor: pointer !important;
+}
+.auth-card{
+   
+
+
+    background-color: white;
+    padding: 1.5rem 4rem;
+    border-radius: 16px;
+
+    h1{
+        color: #494949;
+        font-size: 25px;
+    }
+    p{
+        color: rgba(73, 73, 73, 0.6);
+    }
+
+    i{
+        color: $color-gray;
+    }
+
+    .links{
+        display: flex;
+        justify-content: space-between;
+
+        a{
+            text-decoration: none;
+        }
+        .text-main{
+            color: $color-main;
+        }
+
+        .text-dark-color{
+            color: $color-dark;
+        }
+
+
+    }
+
+    .input-group{
+        background-color:  #F7F7F7;
+        padding: 10px 0px;
+        
+        .input-group-text{
+            background-color: transparent;
+            border: none;
+            border-right: .5px solid $color-gray;
+
+        }
+        input{
+            background-color: transparent;
+            border: none;
+
+            &:focus{
+                outline: none !important;
+                box-shadow: none !important;
+            }
+
+            &::placeholder{
+                color: $color-gray ;
+
+            }
+            
+        }
+      
+        textarea{
+            background-color: transparent;
+            border: none;
+
+            &:focus{
+                outline: none !important;
+                box-shadow: none !important;
+            }
+
+            &::placeholder{
+                color: $color-gray ;
+
+            }
+            
+        }
+
+     
+        
+
+    }
+}
+
+
+
+button{
+border: none;
+border-radius: 8px;
+padding: .8rem .5rem;
+
+&.primary{
+    background-color: $color-main;
+    color: white !important;
+    transition: opacity .5s;
+
+    &:disabled{
+        background-color: $disabled-main-color;
+        color: $disabled-white-color;
+        cursor: not-allowed;
+      }
+
+    &:hover{
+        opacity: .9;
+    }
+}
+
+&.outline{
+    border: 1px solid $color-main;
+    background-color: transparent;
+    color: $color-main;
+    transition: all .5s;
+    &:hover{
+        background-color: $color-main;
+        color: white;
+    }
+}
+}
+
+.drop-zone{
+width: 220px;
+height: 220px;
+margin: auto;
+overflow: hidden;
+border-radius: 50%;
+border: .5px dashed $color-gray;
+background-color:  #F7F7F7;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.drop-recipce{
+    height: 300px;
+    margin: auto;
+    overflow: hidden;
+    border: .5px dashed $color-gray;
+    background-color:  #F7F7F7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+
+.all{
+    background-color: #009247;
+    border-radius: 20px ;
+
+.page-title{
+    background-image: url(./assets/img/header-bg-svg.svg);
+    background-size: cover;
+    background-position: center center;
+    border-radius: 15px;
+    overflow: hidden !important;
+    color: white;
+
+    h1{
+        span{
+            font-family: "Roboto", sans-serif;
+            font-size: 32px;
+            font-weight: 400;
+            line-height: 37.5px;
+            margin: 0 3px;                
+            }
+    }
+}
+}
+
+
+
+input{
+    background-color: transparent;
+    border: none;
+
+    &:focus{
+        outline: none !important;
+        box-shadow: none !important;
+    }
+
+    &::placeholder{
+        color: $color-gray ;
+
+    }
+    
+}
+
+
+@media screen and (max-width:992px ) and (min-width:768px) {
+
+    .auth-card{
+        padding: 1.5rem 2rem;
+
+    }
+}
+
+@media screen and (max-width:768px) {
+
+    .auth-card{
+        padding: 1.5rem 1rem;
+
+    }
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+
+
+
+::ng-deep .mat-focused .mat-form-field-label {
+    /*change color of label*/
+    color: green !important;
+   }
+  
+   ::ng-deep.mat-form-field-underline {
+    /*change color of underline*/
+    background-color: green !important;
+  } 
+  
+  ::ng-deep.mat-form-field-ripple {
+   /*change color of underline when focused*/
+   background-color: green !important;
+  }
+  
+
+
+.mdc-text-field--outlined{
+    --mdc-outlined-text-field-focus-outline-color: $color-main ;
+    --mdc-outlined-text-field-hover-outline-color: $color-main ;
+    transition: 0.3s ease-in-out;
+ 
+ .labelIn{
+     color: #009247;
+ } }
+
+
+
+ .table td {
+    height: 90px; 
+    width: 90px;
+    vertical-align: middle;
+
+  
+  .img-photo{
+
+    height: 90px; 
+    width: 90px;
+   
+  
+   img {
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    margin: auto;
+
+  }
+
+}
+
+}
+
+
+
+.model{
+    position: relative !important;
+    background-color: red;
+}
+.close{
+    position: absolute !important;
+    top: 10px !important; 
+    right: 15px !important;
+}

@@ -1,0 +1,125 @@
+<section>
+
+    <div class="container-fluid">
+        <div class="row g-3 py-4">
+
+
+            <div class="col-md-6">
+
+                <mat-form-field class="example-form-field w-100 " appearance="outline">
+                  <mat-label class="ms-5">Search here ...</mat-label>
+                  <div class="d-flex align-items-center">
+                    <span (click)="getRecipesData()" class="cursor-pointer p-1 d-flex justify-content-center"><i class="fa-solid fa-magnifying-glass me-2 fs-5"></i></span>
+      
+                    <input matInput type="text" [(ngModel)]="searchValue" (keyup.enter)="getRecipesData()"/>
+      
+                  </div>
+                  <button
+                    *ngIf="searchValue"
+                    matSuffix
+                    mat-icon-button
+                    aria-label="Clear"
+                    (click)="reset()"
+                  >
+                    <mat-icon>close</mat-icon>
+                  </button>
+                </mat-form-field>
+              </div>
+      
+      
+              <div class="col-md-3">
+      
+                <mat-form-field  appearance="outline" class="w-100">
+                  <mat-label>Tag</mat-label>
+                  <mat-select [(ngModel)]="tagId" (selectionChange)="getRecipesData()">
+                    <mat-option value="0">All</mat-option>
+      
+                    <mat-option [value]="item.id" *ngFor="let item of allTags">{{item.name}}</mat-option>
+                   
+                  </mat-select>
+                </mat-form-field>
+      
+              </div>
+      
+      
+              <div class="col-md-3">
+      
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>{{(categoriesIsEmpty)? 'No Category':'Category'}}</mat-label>
+                  <mat-select  [(ngModel)]="categoryId" (selectionChange)="getRecipesData()">
+                   
+                    <ng-container *ngIf="!categoriesIsEmpty">
+                      <mat-option value="0">All</mat-option>
+                      <mat-option *ngFor="let item of allCategories.data" [value]="item.id">{{ item.name }}</mat-option>
+      
+                    </ng-container>
+                    
+      
+                  </mat-select>
+      
+                </mat-form-field>
+      
+         
+              </div>
+
+
+            <ng-container *ngIf="!noDataFound">
+
+            
+            <div class="col-sm-6 col-md-6 col-xl-4 col-xxl-3" *ngFor="let recipe of allRecipes.data">
+                <div class="recipe px-2 cursor-pointer bgd"  >
+    
+                    <div   (click)="openViewRecipceDialog(recipe)">
+                    <img [src]="(recipe.imagePath)?imgUrl+recipe.imagePath:emptyImage" class="w-100" height="300" [alt]="recipe.name">
+                    <h4 class="h5">{{recipe.name }}</h4>
+                    <h3 class="h5 pt-1">{{recipe.tag.name}}</h3>
+
+                    <div class="d-flex justify-content-between align-items-center pt-3">
+                        <span> {{recipe.price}} EGP</span>
+                        
+                    </div>
+                    </div>
+    
+                    <button (click)="addToFav(recipe.id)"  class="w-100 bg-secondary text-white mt-1">Add To Favorite</button>
+                </div>
+
+
+                
+            </div>
+        </ng-container>
+
+
+
+
+        </div>
+
+        <div *ngIf="!noDataFound">
+
+            <mat-paginator
+            #paginator
+            class="demo-paginator"
+            (page)="handlePageEvent($event)"
+            [length]="allRecipes.totalNumberOfRecords"
+            [pageSize]="pageSize"
+            [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []"
+            [pageIndex]="pageIndex"
+            aria-label="Select page"
+          >
+          </mat-paginator>
+        </div>
+
+        <div *ngIf="noDataFound" class="mt-4 text-center d-flex flex-column align-items-center" >
+  
+            <div>
+              <img width="250px" src="./assets/img/delete-img.svg" alt="no data">
+            </div>
+        
+            <h3 class="mt-3">No Data !</h3>
+            <p class="mt-2 text-muted ">no data found  </p>
+        
+        
+          </div>
+
+
+    </div>
+</section>

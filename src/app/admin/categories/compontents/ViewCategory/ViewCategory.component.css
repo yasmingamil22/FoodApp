@@ -1,0 +1,11 @@
+.model{
+    position: relative !important;
+}
+.close{
+    position: absolute !important;
+    top: 10px !important; 
+    right: 15px !important;
+}
+.cursor-pointer{
+    cursor: pointer;
+}

@@ -1,0 +1,79 @@
+<section class="auth">
+    <div class="container ">
+
+        <div class="row justify-content-center align-items-center vh-100 ">
+            <div class="col-md-8">
+
+                
+
+                <div class="auth-card">
+                    <div class=" m-auto  text-center">
+                        <img src="./assets/img/logo.svg" class="w-50" alt="">
+                    </div>
+
+                    <div class="mb-4">
+                        <h1>Log In</h1>
+                        <p>Welcome Back! Please enter your details</p>
+                    </div>
+
+                   
+
+                    <form [formGroup]="loginForm" (ngSubmit)="login(loginForm)">
+                        
+                        <div class="input-group ">
+                            <span class="input-group-text" id="basic-addon1">
+                                <i class="fa-solid fa-mobile-screen fs-5"></i>
+                            </span>
+                            <input formControlName="email" type="email" class="form-control" placeholder="Enter your E-mail" aria-label="Username" aria-describedby="basic-addon1">
+                          </div>
+
+                          <div *ngIf="loginForm.get('email')?.errors && loginForm.get('email')?.touched" class="d-flex align-items-center mt-1">
+                            <img src="./assets/img/invalid.png" width="22" height="22" alt="" class="mx-2">
+                            <p *ngIf="loginForm.get('email')?.getError('required')" class="m-0 text-danger ">Email is required</p>
+                            <p *ngIf="loginForm.get('email')?.getError('email')" class="m-0 text-danger">Email is invalid</p>
+                          </div>
+    
+                          <div class="input-group mt-3 d-flex align-items-center ">
+                            <span class="input-group-text" id="basic-addon1">
+                                <i class="fa-solid fa-lock fs-5"></i>
+                            </span>
+                            <input formControlName="password" [type]="hide? 'password':'text'" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1">
+                            <span> 
+                                <i (click)="hide=!hide" class="fa-regular  fs-5 pe-3 hide" [class]="hide? 'fa-eye-slash':'fa-eye' "></i>
+                            </span>
+                        </div>
+
+                        <div *ngIf="loginForm.get('password')?.errors && loginForm.get('password')?.touched" class="d-flex align-items-center mt-1">
+                            <img src="./assets/img/invalid.png" width="22" height="22" alt="" class="mx-2">
+                            <p *ngIf="loginForm.get('password')?.getError('required')" class="text-danger m-0">Password is required</p>
+                            <p *ngIf="loginForm.get('password')?.getError('pattern')" class="text-danger m-0">Password must contain at least one digit,one lowercase letter,one uppercase letter,one special character, and is at least 8 characters long.</p>
+                        </div>
+    
+                          <div class="links mt-2">
+                            <a [routerLink]="['register']" class="text-dark-color" href="">Register Now?</a>
+                            <a [routerLink]="['resetRequest']" class="text-main" href="">Forgot Password?</a>
+                          </div>
+    
+                          <button [disabled]="loginForm.invalid" class="primary w-100 mt-4">Login</button>
+
+                         
+
+
+                    </form>
+                      
+
+                    
+
+
+
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+
+    
+
+</section>

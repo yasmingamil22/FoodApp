@@ -1,0 +1,40 @@
+.base{
+    background-color: #F0FFEF;
+    border-radius: 20px ;
+
+}
+
+
+
+    .mdc-text-field--outlined{
+        --mdc-outlined-text-field-focus-outline-color: none ;
+        --mdc-outlined-text-field-hover-outline-color: none ;
+        transition: 0.3s ease-in-out;
+     
+     }
+
+     .labelIn{
+        color: #009247;
+    } 
+
+    .drop-recipce{
+   
+        border: none;
+        }
+    
+        .upload{
+            color: #8391A1;
+        }
+
+
+.center{
+    position: relative;
+}
+.edit{
+    position: absolute;
+    top: 0;
+    right: 10px;
+    border-radius: 5px;
+    color: white;
+}
+

@@ -1,0 +1,97 @@
+
+
+.all{
+    background-color: #009247;
+    border-radius: 20px ;
+
+}
+
+.page-title{
+    background-image: url(/assets/img/header-bg-svg.svg);
+    background-size: cover;
+    background-position: center center;
+    border-radius: 15px;
+    overflow: hidden !important;
+    color: white;
+
+}
+
+
+.mdc-text-field--outlined{
+    --mdc-outlined-text-field-focus-outline-color: none ;
+    --mdc-outlined-text-field-hover-outline-color: none ;
+    transition: 0.3s ease-in-out;
+ 
+ }
+
+ .labelIn{
+    color: #009247;
+} 
+
+
+
+    .upload{
+        color: #8391A1;
+    }
+
+
+.center{
+position: relative;
+}
+.edit{
+position: absolute;
+top: -50px;
+right: 20%;
+border-radius: 5px;
+color: white;
+}
+
+input{
+    background-color: transparent;
+    border: none;
+
+    &:focus{
+        outline: none !important;
+        box-shadow: none !important;
+    }
+
+    &::placeholder{
+        color: #8391A1 ;
+
+    }
+    
+}
+
+
+.input-group{
+    background-color:  #F7F7F7;
+    padding: 10px 0px;
+    margin: 20px 0;
+    
+    .input-group-text{
+        background-color: transparent;
+        border: none;
+        border-right: .5px solid #8391A1;
+
+    }
+    input{
+        background-color: transparent;
+        border: none;
+
+        &:focus{
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        &::placeholder{
+            color: #8391A1 ;
+
+        }
+        
+    }
+  
+
+ 
+    
+
+}

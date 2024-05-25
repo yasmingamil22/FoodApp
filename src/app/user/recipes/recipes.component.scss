@@ -1,0 +1,13 @@
+
+
+.recipe {
+    border-radius: 5px;
+    border: solid 1px #4AA35A;
+    transition: box-shadow 0.5s;
+    overflow: hidden;
+  }
+  
+  
+  .recipe:hover {
+    box-shadow: 0 0 10px #4AA35A;
+  }

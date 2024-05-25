@@ -1,0 +1,262 @@
+<section class="all">
+  <div class="page-title px-3 mt-3">
+    <div class="row align-items-center">
+      <div class="col-md-6">
+        <div>
+          <h1>
+            Welcome <span> {{ profileData.userName }}</span>
+          </h1>
+          <p class="w-50">You can now update your profile</p>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="text-md-end text-sm-center pe-2">
+          <img src="./assets/img/home-avatar.svg" alt="" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-4">
+  <form [formGroup]="profileForm" (ngSubmit)="openDialog()">
+    <div class="row g-4 justify-content-center align-items-center">
+      <div class="col-lg-4">
+        <div class="center">
+          <ng-container *ngIf="imgNeededToEdit">
+            <div class="edit">
+              <ngx-file-drop
+                dropZoneClassName=""
+                [multiple]="false"
+                dropZoneLabel="Drop files here"
+                (onFileDrop)="dropped($event)"
+                (onFileOver)="fileOver($event)"
+                (onFileLeave)="fileLeave($event)"
+              >
+                <ng-template
+                  ngx-file-drop-content-tmp
+                  let-openFileSelector="openFileSelector"
+                >
+                  <div>
+                    <button type="button" (click)="openFileSelector()" class="">
+                      <i class="fa-solid fa-pen fs-4 text-secondary"></i>
+                    </button>
+                  </div>
+                </ng-template>
+              </ngx-file-drop>
+            </div>
+          </ng-container>
+
+          <ngx-file-drop
+            dropZoneClassName="drop-zone"
+            *ngIf="!imageUploaded && !imgNeededToEdit"
+            [multiple]="false"
+            dropZoneLabel="Drop files here"
+            (onFileDrop)="dropped($event)"
+            (onFileOver)="fileOver($event)"
+            (onFileLeave)="fileLeave($event)"
+          >
+            <ng-template
+              ngx-file-drop-content-tmp
+              let-openFileSelector="openFileSelector"
+            >
+              <div>
+                <button
+                  type="button"
+                  (click)="openFileSelector()"
+                  class="bg-transparent d-flex flex-column align-items-center"
+                >
+                  <i class="fa-solid fa-upload fs-4 mb-2"></i>
+                  <span class="upload"> Upload your profile image</span>
+                </button>
+              </div>
+            </ng-template>
+          </ngx-file-drop>
+
+          <div *ngIf="imageUploaded || imgNeededToEdit" class="drop-zone">
+            <img
+              [src]="imageUrl ? imageUrl : imgNeededToEdit"
+              class="w-100"
+              alt="Uploaded Image"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-8 bgb">
+        <div class="">
+          <div class="input-group">
+            <span class="input-group-text" id="basic-addon1">
+              <i class="fa-solid fa-user fs-5"></i>
+            </span>
+            <input
+              formControlName="userName"
+              type="text"
+              class="form-control"
+              placeholder="UserName"
+              aria-label="Username"
+              aria-describedby="basic-addon1"
+            />
+          </div>
+
+          <div
+            *ngIf="
+              profileForm.get('userName')?.errors &&
+              profileForm.get('userName')?.touched
+            "
+            class="d-flex align-items-center mt-1 small"
+          >
+            <img
+              src="./assets/img/invalid.png"
+              width="22"
+              height="22"
+              alt=""
+              class="mx-2"
+            />
+            <p
+              *ngIf="profileForm.get('userName')?.getError('required')"
+              class="m-0 text-danger"
+            >
+              UserName is required
+            </p>
+            <p
+              *ngIf="profileForm.get('userName')?.getError('pattern')"
+              class="m-0 text-danger"
+            >
+              UserName must contain at least one digit and from 4 to 8
+              characters
+            </p>
+          </div>
+        </div>
+
+        <div class="">
+          <div class="input-group">
+            <span class="input-group-text" id="basic-addon1">
+              <i class="fa-solid fa-mobile-screen fs-5"></i>
+            </span>
+            <input
+              formControlName="email"
+              type="email"
+              class="form-control"
+              placeholder="Enter your E-mail"
+              aria-label="Username"
+              aria-describedby="basic-addon1"
+            />
+          </div>
+
+          <div
+            *ngIf="
+              profileForm.get('email')?.errors &&
+              profileForm.get('email')?.touched
+            "
+            class="d-flex align-items-center mt-1 small"
+          >
+            <img
+              src="./assets/img/invalid.png"
+              width="22"
+              height="22"
+              alt=""
+              class="mx-2"
+            />
+            <p
+              *ngIf="profileForm.get('email')?.getError('required')"
+              class="m-0 text-danger"
+            >
+              Email is required
+            </p>
+            <p
+              *ngIf="profileForm.get('email')?.getError('email')"
+              class="m-0 text-danger"
+            >
+              Email is invalid
+            </p>
+          </div>
+        </div>
+
+        <div class="">
+          <div class="input-group d-flex align-items-center">
+            <span class="input-group-text" id="basic-addon1">
+              <i class="fa-solid fa-globe fs-5"></i>
+            </span>
+            <input
+              formControlName="country"
+              type="text"
+              class="form-control"
+              placeholder="Country"
+              aria-label="Username"
+              aria-describedby="basic-addon1"
+            />
+          </div>
+
+          <div
+            *ngIf="
+              profileForm.get('country')?.errors &&
+              profileForm.get('country')?.touched
+            "
+            class="d-flex align-items-center mt-1 small"
+          >
+            <img
+              src="./assets/img/invalid.png"
+              width="22"
+              height="22"
+              alt=""
+              class="mx-2"
+            />
+            <p
+              *ngIf="profileForm.get('country')?.getError('required')"
+              class="text-danger m-0"
+            >
+              Country is required
+            </p>
+          </div>
+        </div>
+
+        <div class="">
+          <div class="input-group">
+            <span class="input-group-text" id="basic-addon1">
+              <i class="fa-solid fa-mobile-screen fs-5"></i>
+            </span>
+            <input
+              formControlName="phoneNumber"
+              type="tel"
+              class="form-control"
+              placeholder="PhoneNumber"
+              aria-label="Username"
+              aria-describedby="basic-addon1"
+            />
+          </div>
+
+          <div
+            *ngIf="
+              profileForm.get('phoneNumber')?.errors &&
+              profileForm.get('phoneNumber')?.touched
+            "
+            class="small d-flex align-items-center mt-1"
+          >
+            <img
+              src="./assets/img/invalid.png"
+              width="22"
+              height="22"
+              alt=""
+              class="mx-2"
+            />
+            <p
+              *ngIf="profileForm.get('phoneNumber')?.getError('required')"
+              class="m-0 text-danger"
+            >
+              PhoneNumber is required
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-end ms-auto mt-3">
+      <button type="button" class="btn btn-secondary py-3 px-5 mx-3">
+        Cancel
+      </button>
+      <button [disabled]="profileForm.invalid" type="submit" class="primary py-3 px-5">Update</button>
+    </div>
+  </form>
+</section>

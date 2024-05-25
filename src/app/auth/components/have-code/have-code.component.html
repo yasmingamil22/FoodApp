@@ -1,0 +1,27 @@
+<section class="p-4 rounded-2">
+  <div class="w-100 text-end">
+    <span  (click)="onNoClick()" class=" cursor-pointer "><i class="fa-solid fa-close fs-4"></i></span>
+
+  </div>
+  <div class=" m-auto  text-center">
+    <img src="./assets/img/logo.svg" class="w-75" alt="">
+</div>
+  <h1 mat-dialog-title class="text-main-color fs-4 mt-3">Add Code </h1>
+<div mat-dialog-content  class=" pt-3">
+
+<mat-form-field class="w-100 mdc-text-field--outlined mb-3 " appearance="outline" >
+  <mat-label>Email</mat-label>
+  <input matInput [(ngModel)]="data.email">
+</mat-form-field>
+<br>
+
+<mat-form-field class="w-100 mdc-text-field--outlined mb-3 " appearance="outline" >
+  <mat-label>Code</mat-label>
+  <input matInput [(ngModel)]="data.code">
+</mat-form-field>
+</div>
+<div mat-dialog-actions >
+<button class="primary ms-auto " mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+</div>
+
+</section>

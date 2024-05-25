@@ -1,0 +1,239 @@
+<section class="all">
+  <div class="page-title p-4 mt-3">
+    <div class="row align-items-center">
+      <div class="col-md-8">
+        <div>
+          <h1>Recipes <span> Item</span></h1>
+          <p class="w-50">
+            You can now add your items that any user can order it from the
+            Application and you can edit
+          </p>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="text-end pe-2">
+          <img src="./assets/img/avatar.svg" alt="" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="my-4" >
+  <div>
+    <div class="d-flex align-items-center justify-content-between">
+      <h2 class="h3 m-0">Recipes Table Details</h2>
+
+      <button class="primary" routerLink="add">Add New Recipes</button>
+    </div>
+
+    <p class="text-muted mt-0">You can check all details</p>
+  </div>
+
+  <div >
+    <div class="mt-2">
+      
+      <div class="row align-items-center">
+
+
+        <div class="col-md-6">
+
+          <mat-form-field class="example-form-field w-100 " appearance="outline">
+            <mat-label class="ms-5">Search here ...</mat-label>
+            <div class="d-flex align-items-center">
+              <span (click)="getRecipesData()" class="cursor-pointer p-1 d-flex justify-content-center"><i class="fa-solid fa-magnifying-glass me-2 fs-5"></i></span>
+
+              <input matInput type="text" [(ngModel)]="searchValue" (keyup.enter)="getRecipesData()"/>
+
+            </div>
+            <button
+              *ngIf="searchValue"
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+              (click)="reset()"
+            >
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+
+
+        <div class="col-md-3">
+
+          <mat-form-field  appearance="outline" class="w-100">
+            <mat-label>Tag</mat-label>
+            <mat-select [(ngModel)]="tagId" (selectionChange)="getRecipesData()">
+              <mat-option value="0">All</mat-option>
+
+              <mat-option [value]="item.id" *ngFor="let item of allTags">{{item.name}}</mat-option>
+             
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+
+
+        <div class="col-md-3">
+
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{(categoriesIsEmpty)? 'No Category':'Category'}}</mat-label>
+          <mat-select  [(ngModel)]="categoryId" (selectionChange)="getRecipesData()">
+             
+              <ng-container *ngIf="!categoriesIsEmpty">
+                <mat-option value="0">All</mat-option>
+                <mat-option *ngFor="let item of allCategories.data" [value]="item.id">{{ item.name }}</mat-option>
+
+              </ng-container>
+              
+
+            </mat-select>
+
+          </mat-form-field>
+
+          <!--  
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>{{(categoriesIsEmpty)? 'No Category':'Category'}}</mat-label>
+            <mat-select multiple [(ngModel)]="selectedCategories" (valueChange)="change()">
+              <mat-select-trigger>
+                <ng-container *ngIf="selectedCategories.length === 1">
+                  {{ selectedCategories[0].name }}
+                </ng-container>
+                <ng-container *ngIf="selectedCategories.length > 1">
+                  <span >
+                    {{ selectedCategories[0].name}}
+                  </span>
+                  <span class="example-additional-selection">
+                    (+{{ selectedCategories.length -1 }}
+                    {{  selectedCategories.length === 2 ? "other" : "others" }})
+                  </span>
+                </ng-container>
+              </mat-select-trigger>
+              <ng-container *ngIf="!categoriesIsEmpty">
+                <mat-option *ngFor="let item of allCategories.data" [value]="item">{{ item.name }}</mat-option>
+
+              </ng-container>
+              
+
+            </mat-select>
+
+          </mat-form-field>
+          
+-->
+        </div>
+
+        
+
+
+
+
+      </div>
+    </div>
+
+    <div class="mt-2 " *ngIf="!noDataFound">
+      <table class="table table-striped">
+        <thead class="text-capitalize">
+          <th>name</th>
+          <th>imgage</th>
+          <th>price</th>
+          <th>description</th>
+          <th>Tag</th>
+          <th>category</th>
+          <th>action</th>
+
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let item of allRecipes.data">
+            <td>{{ item.name }}</td>
+            <td>
+              <div class="img-photo">
+                <img
+                [src]="item.imagePath ? imgUrl + item.imagePath : emptyImage"
+                alt=""
+              />
+              </div>
+              
+            </td>
+            <td>{{ item.price }}</td>
+            <td>{{ item.description }}</td>
+            <td>{{ item.tag.name }}</td>
+            <td>
+
+              <div  *ngIf="item.category.length>0;else emptyCategory">
+
+                <span *ngFor="let itemCategory of item.category">
+                  {{   itemCategory.name  }}
+                  <span
+                    *ngIf="
+                      item.category.length > 1 &&
+                      item.category.indexOf(itemCategory) !=
+                        item.category.length - 1
+                    "
+                    >,
+                  </span>
+                </span>
+              </div>  
+
+              <ng-template #emptyCategory> No Category</ng-template>
+              
+
+            </td>
+
+            <td>
+              <button
+                mat-icon-button
+                [matMenuTriggerFor]="menu"
+                aria-label="Example icon-button with a menu"
+              >
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu" class="w-100" backdropClass="he" >
+                <button mat-menu-item  (click)="openViewRecipceDialog(item)">
+                  <mat-icon>visibility</mat-icon>
+                  <span>View</span>
+                </button>
+                <button [routerLink]="['edit',item.id]" mat-menu-item>
+                  <mat-icon>edit_square</mat-icon>
+                  <span>Edit</span>
+                </button>
+                <button (click)="openDeleteDialog(item.id)" mat-menu-item>
+                  <mat-icon>delete</mat-icon>
+                  <span>Delete</span>
+                </button>
+              </mat-menu>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <mat-paginator
+        #paginator
+        class="demo-paginator"
+        (page)="handlePageEvent($event)"
+        [length]="allRecipes.totalNumberOfRecords"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []"
+        [pageIndex]="pageIndex"
+        aria-label="Select page"
+      >
+      </mat-paginator>
+    </div>
+  </div>
+
+
+  <div *ngIf="noDataFound" class="mt-4 text-center d-flex flex-column align-items-center" >
+  
+    <div>
+      <img width="250px" src="./assets/img/delete-img.svg" alt="no data">
+    </div>
+
+    <h3 class="mt-3">No Data !</h3>
+    <p class="mt-2 text-muted ">no data found  </p>
+
+
+  </div>
+
+
+</section>

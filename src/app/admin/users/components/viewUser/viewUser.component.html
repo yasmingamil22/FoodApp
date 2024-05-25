@@ -1,0 +1,73 @@
+<section class="view">
+
+  <div class="text-end m-3 ">
+    <a (click)="onNoClick()" class="text-danger"> <i class="fa-regular fa-xmark-circle fa-2x"></i></a>
+</div>
+  <div class="container p-4  mb-3">
+
+   
+
+    <div class="row align-items-center  mb-4">
+
+      <div class="col-md-4" *ngIf="data.imagePath">
+
+        <div class="text-center">
+
+          <div  class="img-photo">
+            <img class="w-100 rounded-4"
+            [src]="imgUrl + data.imagePath"
+            alt=""
+          />
+        </div>
+        
+        </div>
+
+      </div>
+
+      <div class="col-md-8 ">
+
+         <div class="ms-3">
+          <div class="my-2">
+            <h3>{{data.userName}}</h3>
+          </div>
+        
+          <div class="my-3">
+            <span class="icon"> <i class="fa-solid fa-envelope"></i> </span>
+             <span>{{data.email}}</span>
+          </div>
+
+          <div class="my-3">
+            <span class="icon"> <i class="fa-solid fa-globe"></i> </span>
+            <span>{{data.country}}</span>
+            
+        </div>
+          <div class="my-3">
+            <span class="icon"> <i class="fa-solid fa-phone"></i> </span>
+            <span>{{data.phoneNumber}}</span>
+            
+          </div>
+          <div class="my-3">
+            <span class="icon"> <i class="fa-solid fa-user"></i> </span>
+            <span>{{data.group.name}}</span>
+            
+          </div>
+         
+    </div>
+  </div>
+
+ 
+
+
+</div>
+
+<hr>
+
+
+<div class=" text-end">
+  <button class="btn btn-outline-danger px-2 " [mat-dialog-close]="data" cdkFocusInitial>Delete this User</button>
+
+</div>
+
+
+</div>
+</section>

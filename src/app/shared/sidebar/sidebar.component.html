@@ -1,0 +1,55 @@
+
+<section class="side-bar bg-dark-secondary   h-100" >
+   
+
+    <div class=" pt-5 d-flex justify-content-center ">
+        <img src="./assets/img/logo-no-text.svg" width="250px" class=" cursor-pointer "  alt=""
+            (click)="onClicked()">
+    </div>
+
+    <div class="mt-5 side-links">
+        <ul class="p-0 list-unstyled ">
+            <ng-container *ngFor="let item of menu">
+                <li *ngIf="item.isActive">
+                    <a [routerLink]="[item.link]" routerLinkActive="active"  class="d-flex align-items-center" [class]="isOpened?'':'justify-content-center'">
+                        <span><i class="fs-5" [class]="item.icon"></i></span>
+                        <span class="text" [ngClass]="{ 'd-none': !isOpened }">{{item.text}}</span>
+                    </a>
+                </li>
+            </ng-container>
+        </ul>
+    </div>
+
+</section>
+
+
+
+<section id="sideLink" class="position-relative start-0">
+    <a class="btn seconary-color bar-chart position-absolute z-2" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+        <i class="fa-solid fa-bars-staggered"></i>
+      </a>
+     
+      <div class="offcanvas offcanvas-start bg-main" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header d-flex justify-content-between align-items-center">
+         <img src="./assets/img/logo-no-text.svg" class="w-50" alt="">
+          <span role="button" class="close main-color fa-solid fa-xmark" data-bs-dismiss="offcanvas" aria-label="Close"></span>
+        </div>
+        <div class="offcanvas-body">
+         
+            <div class="side-links pt-5">
+                <ul class="ps-0">
+                        <ng-container *ngFor="let item of menu">
+                            <li *ngIf="item.isActive" class="pb-3">
+                                <a [routerLink]="item.link" 
+                                routerLinkActive="active-ul" class="d-flex align-items-center text-white">
+                                <i [class]="item.icon" ></i>
+                                <span class="ms-2">{{item.text}}</span>
+                            </a>
+                        </li>
+                    </ng-container>
+                    </ul>
+            </div>
+         
+        </div>
+      </div>
+</section>
